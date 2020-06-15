@@ -30,7 +30,6 @@ function load_kibana_config_index_on_elastic() {
     while [[ $KIBANA_STATUS != 302 ]]; do
       KIBANA_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5601);
     done
-    echo "KIBANA_STATUS: $(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5601)"
     docker run --rm -ti -v $(pwd)/monitoring/kibana/import/kibana_1.json:/tmp/kibana.json elasticdump/elasticsearch-dump \
       --input=/tmp/kibana.json \
       --output=http://host.docker.internal:9200/.kibana_1
@@ -71,11 +70,12 @@ function load_initial_hashtags() {
     echo "OK"
   fi
 }
+
 function create() {
   load_twitter_credentials
   load_infrastructure
   load_kibana_config_index_on_elastic
-#  load_initial_hashtags
+  load_initial_hashtags
 }
 
 function destroy() {
