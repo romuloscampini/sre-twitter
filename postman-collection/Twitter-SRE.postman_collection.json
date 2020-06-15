@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "bbdbb20c-46eb-4162-939b-e744fdf2071a",
+		"name": "Twitter-SRE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuarios-Com-Mais-Seguidores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistics/users/most-followed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistics",
+						"users",
+						"most-followed"
+					]
+				},
+				"description": "Retorna os 5 usuários com mais seguidores da amostra coletada"
+			},
+			"response": []
+		},
+		{
+			"name": "Total-Postagens-Por-Hora",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistics/tweets/total-by-hour-of-day",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistics",
+						"tweets",
+						"total-by-hour-of-day"
+					]
+				},
+				"description": "Total de postagens agrupadas por hora do dia (independente da hashtag)"
+			},
+			"response": []
+		},
+		{
+			"name": "Total-Postagens-Por-Idioma",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistics/tweets/total-by-language",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistics",
+						"tweets",
+						"total-by-language"
+					]
+				},
+				"description": "Retorna o total de postagens para cada hashtag por idioma/país do usuário que postou;"
+			},
+			"response": []
+		},
+		{
+			"name": "Gerar-Erro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/error",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"error"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "dfc46eaf-4171-4d8c-b964-daca130ef388",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5056b35f-cef8-4a99-bf9d-efa3681dd8d8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

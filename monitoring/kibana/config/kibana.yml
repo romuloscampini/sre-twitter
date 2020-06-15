@@ -1,0 +1,9 @@
+# Default Kibana configuration for docker target
+server.name: kibana
+server.host: "0"
+elasticsearch.hosts:  [ "http://elasticsearch:9200" ]
+apm_oss.enabled: true
+xpack.apm.enabled: true
+xpack.apm.ui.enabled: true
+logging.dest: stdout
+#monitoring.ui.container.elasticsearch.enabled: true

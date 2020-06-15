@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: sre-twitter
+  data:
+    mongodb:
+      host: ${MONGO_DB_HOST}
+      port: ${MONGO_DB_PORT}
+      database: ${MONGO_DB_NAME}
+      username: ${MONGO_DB_USERNAME}
+      password: ${MONGO_DB_PASSWORD}
+      authentication-database: ${MONGO_DB_AUTH_NAME}
+  zipkin:
+    base-url: ${ZIPKIN_BASE_URL}
+  sleuth:
+    enabled: true
+    opentracing:
+      enabled: true
+    sampler:
+      probability: 1
+
+
+#Habilitando para fins de demonstração (Por segurança, em produção, geralmente essas opções ficam desabilitadas)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    enable:
+      all: true
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true

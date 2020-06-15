@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: sre-twitter
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: twitter
+      username: root
+      password: root
+      authentication-database: admin
+  zipkin:
+    base-url: http://localhost:9411/
+  sleuth:
+    enabled: true
+    opentracing:
+      enabled: true
+    sampler:
+      probability: 1
+
+
+#Habilitando para fins de demonstração (Por segurança, em produção, geralmente essas opções ficam desabilitadas)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    enable:
+      all: true
+    export:
+      prometheus:
+        enabled: true
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
