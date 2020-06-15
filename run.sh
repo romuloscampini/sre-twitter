@@ -25,14 +25,19 @@ function load_infrastructure() {
 function load_kibana_config_index_on_elastic() {
   if [ ! -f ".sre_kibana_index_imported_ok" ]; then
     echo "Loading Kibana configurations..."
-    sleep 2m
+    sleep 1m
+    KIBANA_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5601)
+    while [[ $KIBANA_STATUS != 302 ]]; do
+      KIBANA_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5601);
+    done
+    echo "KIBANA_STATUS: $(curl -o /dev/null -s -w "%{http_code}\n" http://localhost:5601)"
     docker run --rm -ti -v $(pwd)/monitoring/kibana/import/kibana_1.json:/tmp/kibana.json elasticdump/elasticsearch-dump \
       --input=/tmp/kibana.json \
-      --output=http://host.docker.internal:9200/.kibana_1 &> /dev/null
+      --output=http://host.docker.internal:9200/.kibana_1
 
     docker run --rm -ti -v $(pwd)/monitoring/kibana/import/kibana_task_manager_1.json:/tmp/kibana.json elasticdump/elasticsearch-dump \
       --input=/tmp/kibana.json \
-      --output=http://host.docker.internal:9200/.kibana_task_manager_1 &> /dev/null
+      --output=http://host.docker.internal:9200/.kibana_task_manager_1
 
     touch .sre_kibana_index_imported_ok
     echo "OK"
@@ -43,36 +48,60 @@ function load_initial_hashtags() {
   if [ ! -f ".sre_api_initial_hashtags" ]; then
     echo "Loading Initial hashtags..."
     sleep 30s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23openbanking'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23openbanking"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23remediation'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23remediation"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23devops'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23devops"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23sre'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23sre"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23microservices'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23microservices"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23observability'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23observability"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23oauth'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23oauth"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23metrics'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23metrics"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23logmonitoring'
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23logmonitoring"
     sleep 1s
-    curl -XPOST 'http://localhost:8080/tweet/collector?hashtag=%23opentracing'
-
+    curl -X POST "http://localhost:8080/tweet/collector" -d "hashtag=%23opentracing"
     touch .sre_api_initial_hashtags
     echo "OK"
   fi
 }
-
-function main() {
+function create() {
   load_twitter_credentials
   load_infrastructure
   load_kibana_config_index_on_elastic
-  load_initial_hashtags
+#  load_initial_hashtags
 }
+
+function destroy() {
+  rm -f .sre_api_initial_hashtags
+  rm -f .sre_kibana_index_imported_ok
+  docker-compose down
+}
+
+
+function main(){
+  echo "SRE - Case Twitter"
+  echo -e "##################\n"
+  echo "Opções de execução: "
+  echo -e "\t 1. Criar ambiente"
+  echo -e "\t 2. Apagar ambiente"
+  echo -e "\t 0. Sair"
+  read -p "Informe a opção desejada [ENTER: Opção 1]: " op
+  case $op in
+    2)
+      destroy;;
+    0)
+      exit;;
+    *)
+      create;;
+  esac
+}
+
 
 main

@@ -1,4 +1,4 @@
-#SRE - Case Twitter
+# SRE - Case Twitter
 Case Twitter para SRE
 
 ## Demonstração
@@ -44,10 +44,25 @@ Requisitos:
 ### Ferramentas utilizadas / Acessos
 
 - Kibana: [http://localhost:5601](http://localhost:5601)
-- Grafana: [http://localhost:3000](http://localhost:3000)
+- Grafana: [http://localhost:3000](http://localhost:3000)  
+    - User: sre
+    - Password: sre
 - Prometheus: [http://localhost:9090](http://localhost:9090)
 - Zipkin: [http://localhost:9411](http://localhost:9411)
 - ElasticSearch: [http://localhost:9200](http://localhost:9200)
 - Logstash: `localhost:5044`
 - Swagger: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 - Postman
+
+## Desenvolvimento
+
+Projeto desenvolvido utilizando:
+    - Java
+    - MongoDB
+    - Spring Boot (Actuator, Sleuth, Zipkin, Mongo, entre outros)
+    - Maven
+    - Swagger
+    - Logstash / Logback
+    - Micrometer / Prometheus
+    - Docker
+    - Docker Compose
