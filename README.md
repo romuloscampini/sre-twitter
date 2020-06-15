@@ -57,12 +57,12 @@ Requisitos:
 ## Desenvolvimento
 
 Projeto desenvolvido utilizando:
-    - Java
-    - MongoDB
-    - Spring Boot (Actuator, Sleuth, Zipkin, Mongo, entre outros)
-    - Maven
-    - Swagger
-    - Logstash / Logback
-    - Micrometer / Prometheus
-    - Docker
-    - Docker Compose
+- Java
+- MongoDB
+- Spring Boot (Actuator, Sleuth, Zipkin, Mongo, entre outros)
+- Maven
+- Swagger
+- Logstash / Logback
+- Micrometer / Prometheus
+- Docker
+- Docker Compose
